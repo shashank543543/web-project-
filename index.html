@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Basic HTML & CSS - Video Demo</title>
+  <style>
+    /* ========== CSS RESET (minimal) ========== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    /* ========== THEME VARIABLES ========== */
+    :root {
+      --bg: #0f172a;          /* slate-900 */
+      --panel: #141b2a;       /* gray-900 */
+      --text: #e5e7eb;        /* gray-200 */
+      --muted: #9ca3af;       /* gray-400 */
+      --primary: #38bdf8;     /* sky-400 */
+      --accent: #22c55e;      /* green-500 */
+      --radius: 12px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    /* ========== LAYOUT ========== */
+    body {
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(56,189,248,0.08), transparent 60%),
+                  radial-gradient(1200px 800px at 10% 110%, rgba(34,197,94,0.08), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(to bottom, rgba(15,23,42,0.8), rgba(15,23,42,0.4));
+      border-bottom: 1px solid rgba(229,231,235,0.08);
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .brand .dot {
+      width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 0 20px rgba(56,189,248,0.6), 0 0 10px rgba(34,197,94,0.4) inset;
+    }
+
+    .links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 16px;
+      transition: color 150ms ease;
+    }
+    .links a:hover { color: var(--text); }
+
+    main {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 24px 20px 48px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(17,24,39,0.6), rgba(17,24,39,0.3));
+      border: 1px solid rgba(229,231,235,0.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(229,231,235,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-header h2 { margin: 0; font-size: 16px; color: var(--text); }
+    .badge { font-size: 12px; color: var(--bg); background: var(--primary); padding: 2px 8px; border-radius: 999px; }
+
+    .panel-body { padding: 18px; }
+
+    .video-wrap {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      background: #0b1220;
+      border: 1px solid rgba(229,231,235,0.06);
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      outline: none;
+    }
+
+    .tip {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(17,24,39,0.6), rgba(17,24,39,0.3));
+      border: 1px solid rgba(229,231,235,0.08);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: #d1d5db;
+      background: #0b1020;
+      border: 1px solid rgba(229,231,235,0.08);
+      border-radius: 8px;
+      padding: 10px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto; padding: 20px; color: var(--muted); font-size: 13px;
+      border-top: 1px solid rgba(229,231,235,0.08);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><span class="dot"></span> S MOVIE</div>
+      <div class="links">
+        <a href="#video">Video</a>
+        <a href="#about">About</a>
+        <a href="#code">Code</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panel" id="video">
+      <div class="panel-header">
+        <h2>Video</h2>
+        <span class="badge">AURA</span>
+      </div>
+      <div class="panel-body">
+        <div class="video-wrap">
+          <!-- NOTE: MKV containers may not play in all browsers. If it doesn't play, use the download link below or convert to MP4 (H.264/AAC). -->
+          <video controls preload="metadata" poster="2img.jpg">
+            <source src="ff.mp4" type="video/Mp4" />
+            Your browser does not support MKV playback. Try the download link below or convert the video to MP4."
+          </video>
+        </div>
+        <p class="tip">If the video does not play in your browser, <a href="ff.mp4" download>download it</a> or convert to MP4:</p>
+        <div class="code">ffmpeg frinds-c:v libx264 -crf 23 -preset veryfast -c:a aac -b:a 128k frinds-c</div>
+      </div>
+    </section>
+
+    <section class="panel" id="about">
+      <div class="panel-header">
+        <h2>About This Page:</h2>
+        <span class="badge">Details</span>
+      </div>
+      <div class="panel-body stack">
+        <div class="card">
+          <strong>Bio</strong>
+          <p>a short description of yourself, often used on social media, professional profiles, or personal websites <code>&lt;love you all&gt;</code> thank for watching</p>
+        </div>
+        <div class="card">
+          <strong>contect</strong>
+          <p>Friends forever, no matter what <code>:Friends for everything</code> theme colorfull <i>memories</i>.</p>
+        </div>
+        <div class="card">
+          <strong>team</strong>
+          <pre><dark>shashank.s</dark>: <code>Instagram</code>
+              mohandas<code>2img.jpg</code>. 
+             Both should be in the same folder as this HTML file.</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="code">
+      <div class="panel-header">
+        <h2>Sample Markup</h2>
+        <span class="badge">Snippet</span>
+      </div>
+      <div class="panel-body">
+        <div class="code">&lt;video controls poster="2img.jpg"&gt;
+  &lt;source src="ff.mp4" type="video/x-matroska" /&gt;
+  Your browser does not support MKV playback.
+&lt;/video&gt;</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built with basic HTML and CSS. Resize the window to see the responsive layout.
+  </footer>
+</body>
+</html>
